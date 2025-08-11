@@ -4,6 +4,7 @@ import "./App.css";
 import { AppBar, Box, Divider, Grid, TextField } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
+import IframeResizer from "@iframe-resizer/react";
 
 function App() {
   const [url, setUrl] = useState<string>(
@@ -56,15 +57,12 @@ function App() {
         <strong>Iframe URL:</strong> {url}
       </Box>
       <Divider />
-      <iframe
-        title="serviceForm"
-        id="serviceFormIframe"
+      <IframeResizer
+        license="GPLv3"
+        log="collapsed"
         src={url}
-        frameBorder={0}
-        scrolling="no"
-        allowFullScreen={true}
         style={{ width: "100%", height: "100vh", border: "none" }}
-      ></iframe>
+      />
     </>
   );
 }
