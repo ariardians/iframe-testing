@@ -52,7 +52,7 @@ function App() {
         />
       </Box>
       <Divider />
-      <Box sx={{ textAlign: "center", margin: 2 }}>
+      <Box sx={{ textAlign: "center", margin: 2, overflowWrap: "anywhere" }}>
         <strong>Iframe URL:</strong> {url}
       </Box>
       <Divider />
