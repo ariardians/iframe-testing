@@ -1,38 +1,55 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import { AppBar, Box, Divider, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Collapse,
+  Divider,
+  FormControlLabel,
+  Switch,
+  TextField,
+  Typography,
+} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
 import IframeResizer from "@iframe-resizer/react";
 
+declare global {
+  interface Window {
+    OnetrustActiveGroups?: string;
+    OneTrust?: unknown;
+    dataLayer?: unknown[];
+    OptanonActiveGroups?: string;
+  }
+}
+
+function getWindowInfo(iframeUrl: string): Record<string, string> {
+  return {
+    "Iframe URL": iframeUrl,
+  };
+}
+
 function App() {
-  const [url, setUrl] = useState<string>(
-    "https://connect-enduser-qa3.ifmsystems.com?market=DE&franchise=MITS&dealerCode=D10&isExternal=true"
+  const defaultUrl =
+    "https://connect-enduser-qa3.ifmsystems.com?market=DE&franchise=MITS&dealerCode=D10&isExternal=true";
+
+  const [inputUrl, setInputUrl] = useState<string>(defaultUrl);
+  const [url, setUrl] = useState<string>(defaultUrl);
+  const [reloadKey, setReloadKey] = useState(0);
+  const [windowInfo, setWindowInfo] = useState<Record<string, string>>(() =>
+    getWindowInfo(defaultUrl),
   );
+  const [infoOpen, setInfoOpen] = useState(false);
+  const [sendReferrer, setSendReferrer] = useState(true);
+
+  const loadUrl = () => {
+    setUrl(inputUrl);
+    setReloadKey((k) => k + 1);
+    setWindowInfo(getWindowInfo(inputUrl));
+  };
+
   return (
     <>
       <CssBaseline />
-      <AppBar position="static">
-        <Box
-          sx={{
-            flexGrow: 1,
-            height: 64,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Grid container spacing={2} alignItems="center">
-            <Grid>
-              <img src={viteLogo} className="logo" alt="Vite logo" />
-            </Grid>
-            <Grid>
-              <img src={reactLogo} className="logo react" alt="React logo" />
-            </Grid>
-          </Grid>
-        </Box>
-      </AppBar>
       <Box sx={{ textAlign: "center", mx: 2 }}>
         <TextField
           name="url"
@@ -41,26 +58,105 @@ function App() {
           fullWidth
           size="small"
           margin="normal"
-          onChange={(e) => {
-            const iframe = document.getElementById(
-              "serviceFormIframe"
-            ) as HTMLIFrameElement;
-            if (iframe) {
-              iframe.src = e.target.value;
-            }
-            setUrl(e.target.value);
-          }}
+          value={inputUrl}
+          onChange={(e) => setInputUrl(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && loadUrl()}
+        />
+        <Button
+          variant="contained"
+          onClick={loadUrl}
+          sx={{ mb: "9px", whiteSpace: "nowrap" }}
+        >
+          Load URL
+        </Button>
+      </Box>
+      <Box sx={{ mx: 2, mb: 1 }}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={sendReferrer}
+              onChange={(e) => setSendReferrer(e.target.checked)}
+              size="small"
+            />
+          }
+          label={
+            <Typography variant="caption">
+              Send Referrer ({sendReferrer ? "default" : "no-referrer"})
+            </Typography>
+          }
         />
       </Box>
       <Divider />
-      <Box sx={{ textAlign: "center", margin: 2, overflowWrap: "anywhere" }}>
-        <strong>Iframe URL:</strong> {url}
+      <Box sx={{ mx: 2, my: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 1,
+          }}
+        >
+          <Typography
+            variant="subtitle2"
+            fontWeight="bold"
+            onClick={() => setInfoOpen((o) => !o)}
+            sx={{ cursor: "pointer", userSelect: "none" }}
+          >
+            {infoOpen ? "▾" : "▸"} Window Info
+          </Typography>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => setWindowInfo(getWindowInfo(url))}
+          >
+            Refresh
+          </Button>
+        </Box>
+        <Collapse in={infoOpen}>
+          {Object.entries(windowInfo).map(([key, value]) => (
+            <Box
+              key={key}
+              sx={{
+                display: "flex",
+                gap: 1,
+                alignItems: "flex-start",
+                mb: 0.5,
+              }}
+            >
+              <Box
+                component="span"
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "0.78rem",
+                  minWidth: 240,
+                  flexShrink: 0,
+                  fontFamily: "monospace",
+                }}
+              >
+                {key}:
+              </Box>
+              <Box
+                component="span"
+                sx={{
+                  fontSize: "0.78rem",
+                  wordBreak: "break-all",
+                  color: "text.secondary",
+                  fontFamily: "monospace",
+                }}
+              >
+                {value}
+              </Box>
+            </Box>
+          ))}
+        </Collapse>
       </Box>
       <Divider />
       <IframeResizer
+        key={reloadKey}
         license="GPLv3"
         log="collapsed"
         src={url}
+        referrerPolicy={sendReferrer ? undefined : "no-referrer"}
         style={{ width: "100%", height: "100vh", border: "none" }}
       />
     </>
