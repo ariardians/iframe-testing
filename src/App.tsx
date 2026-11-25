@@ -32,7 +32,7 @@ function getWindowInfo(iframeUrl: string): Record<string, string> {
 
 function App() {
   const defaultUrl =
-    "https://connect-enduser-qa3.ifmsystems.com?market=DE&franchise=MITS&dealerCode=D10&isExternal=true";
+    "https://connect-enduser-dev.ifmsystems.com/?market=ES&franchise=TOYO";
 
   const [inputUrl, setInputUrl] = useState<string>(defaultUrl);
   const [url, setUrl] = useState<string>(defaultUrl);
@@ -182,7 +182,7 @@ function App() {
         referrerPolicy={sendReferrer ? undefined : "no-referrer"}
         style={{ width: "100%", height: "100vh", border: "none" }}
       />
-      <div id="ot-sdk-cookie-policy"></div>
+      <div id="ot-sdk-cookie-policy" style={{ display: "none" }}></div>
     </>
   );
 }
