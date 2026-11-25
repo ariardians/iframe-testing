@@ -192,7 +192,13 @@ function App() {
         src={url}
         scrolling="no"
         referrerPolicy={sendReferrer ? undefined : "no-referrer"}
-        style={{ display: "block", width: "100%", height: "100vh", border: "none" }}
+        style={{
+          display: "block",
+          width: "100%",
+          height: "100%",
+          border: "none",
+        }}
+        allow="fullscreen; clipboard-write"
       />
       <div id="ot-sdk-cookie-policy" style={{ display: "none" }}></div>
     </>
