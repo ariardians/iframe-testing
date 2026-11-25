@@ -14,15 +14,9 @@ importers:
       '@emotion/styled':
         specifier: ^11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
-      '@iframe-resizer/react':
-        specifier: ^5.5.2
-        version: 5.5.9(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@mui/material':
         specifier: ^7.3.1
         version: 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      iframe-resizer:
-        specifier: ^5.5.2
-        version: 5.5.9
       react:
         specifier: ^19.1.1
         version: 19.2.7
@@ -430,24 +424,6 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@iframe-resizer/child@5.5.9':
-    resolution: {integrity: sha512-kX4GeGvlfu9S0XfDgSEy+O36q6qFz17kslLYdBT1evBTCK7Q3ETYtZMzVnHlB5PKc9co699kWEZbmpUGtE9IQw==}
-
-  '@iframe-resizer/core@5.5.9':
-    resolution: {integrity: sha512-HacDQx81pgHlmY48tRogcX02TOXfvjllJzI+xfVYmvEXhxoViyi9yEobhNQEt8Mq6NmrH1vHhz6FRfQ9uBTsjQ==}
-
-  '@iframe-resizer/jquery@5.5.9':
-    resolution: {integrity: sha512-ihGJOv7K3tWT+HjLRKcM+9USqo7B3nrN8J5YEBH1Br+45E36uKeUq0JSrPckv9TFdjB0Xqc+le2f33lfrsRuAg==}
-
-  '@iframe-resizer/parent@5.5.9':
-    resolution: {integrity: sha512-DfNb9KlOf7WyCNOM2xWPGxJfWtqA/gg7sjHvqvD4k6cfpntPXrKfCd3WdOPNKA980urGkhOdM9Ye0unV2gnYYw==}
-
-  '@iframe-resizer/react@5.5.9':
-    resolution: {integrity: sha512-PXzQ9m594JsUWjfgk0BIvd9Boow/GSBhViwxlHoHPRsZGsLMqsELvdlcnCEL3acKVl5mDl2KF+hIImA98vPalA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
-
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
 
@@ -797,9 +773,6 @@ packages:
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
 
-  auto-console-group@1.3.0:
-    resolution: {integrity: sha512-W/G5jy1ZPeVYPyqOVGND7EjbzrsLgRD3s+1QegXfJ7bYlphFxjqG60rviFXWw0d2YCj0Clc7hU5/nTqrBEhBIw==}
-
   autoprefixer@10.5.4:
     resolution: {integrity: sha512-MaU0U/za7N3r6brxD4YB/l4NSrFzLPlANv6wEuQVaIPlD3L4W9rFcQPbL/EilY9BHhHvhfcz3gInDLrEtWT4EA==}
     engines: {node: ^10 || ^12 || >=14}
@@ -1045,9 +1018,6 @@ packages:
 
   hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
-
-  iframe-resizer@5.5.9:
-    resolution: {integrity: sha512-PpzCs5rBzNJFa7agEw8Q46sxDy1SrRAZEznpqP9KxWeL6ea895Xlv90fVswozey7Jzldzi2eeNqg2FMZ0Lfjrw==}
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -1741,31 +1711,6 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iframe-resizer/child@5.5.9':
-    dependencies:
-      auto-console-group: 1.3.0
-
-  '@iframe-resizer/core@5.5.9':
-    dependencies:
-      auto-console-group: 1.3.0
-
-  '@iframe-resizer/jquery@5.5.9':
-    dependencies:
-      '@iframe-resizer/core': 5.5.9
-
-  '@iframe-resizer/parent@5.5.9':
-    dependencies:
-      '@iframe-resizer/core': 5.5.9
-      auto-console-group: 1.3.0
-
-  '@iframe-resizer/react@5.5.9(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
-    dependencies:
-      '@babel/runtime': 7.29.7
-      '@iframe-resizer/core': 5.5.9
-      auto-console-group: 1.3.0
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
-
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -2106,8 +2051,6 @@ snapshots:
 
   argparse@2.0.1: {}
 
-  auto-console-group@1.3.0: {}
-
   autoprefixer@10.5.4(postcss@8.5.19):
     dependencies:
       browserslist: 4.28.6
@@ -2367,12 +2310,6 @@ snapshots:
   hoist-non-react-statics@3.3.2:
     dependencies:
       react-is: 16.13.1
-
-  iframe-resizer@5.5.9:
-    dependencies:
-      '@iframe-resizer/child': 5.5.9
-      '@iframe-resizer/jquery': 5.5.9
-      '@iframe-resizer/parent': 5.5.9
 
   ignore@5.3.2: {}
 
