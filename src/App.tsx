@@ -10,13 +10,15 @@ import {
   Typography,
 } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import IframeResizer from "@iframe-resizer/react";
+import { startConsentBridge } from "./oneTrustConsent";
 
 declare global {
   interface Window {
     OnetrustActiveGroups?: string;
     OneTrust?: unknown;
+    OptanonWrapper?: () => void;
     dataLayer?: unknown[];
     OptanonActiveGroups?: string;
   }
@@ -40,6 +42,22 @@ function App() {
   );
   const [infoOpen, setInfoOpen] = useState(false);
   const [sendReferrer, setSendReferrer] = useState(true);
+  const [consent, setConsent] = useState({ analytics: false, groups: "" });
+  const frameRef = useRef<{ getElement: () => HTMLIFrameElement }>(null);
+
+  useEffect(() => {
+    let origin: string;
+    try {
+      origin = new URL(url).origin;
+    } catch {
+      return; // not a valid URL yet
+    }
+    return startConsentBridge(
+      () => frameRef.current?.getElement() ?? null,
+      origin,
+      (analytics, groups) => setConsent({ analytics, groups }),
+    );
+  }, [url, reloadKey]);
 
   const loadUrl = () => {
     setUrl(inputUrl);
@@ -113,7 +131,11 @@ function App() {
           </Button>
         </Box>
         <Collapse in={infoOpen}>
-          {Object.entries(windowInfo).map(([key, value]) => (
+          {Object.entries({
+            ...windowInfo,
+            "OneTrust analytics (C0002)": String(consent.analytics),
+            OnetrustActiveGroups: consent.groups || "(none)",
+          }).map(([key, value]) => (
             <Box
               key={key}
               sx={{
@@ -153,12 +175,14 @@ function App() {
       <Divider />
       <IframeResizer
         key={reloadKey}
+        forwardRef={frameRef}
         license="GPLv3"
         log="collapsed"
         src={url}
         referrerPolicy={sendReferrer ? undefined : "no-referrer"}
         style={{ width: "100%", height: "100vh", border: "none" }}
       />
+      <div id="ot-sdk-cookie-policy"></div>
     </>
   );
 }
